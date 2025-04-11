@@ -1,7 +1,23 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
+
+class BaseUser( AbstractUser ) : # ThE Base User : 4 Different users will inherit
+    username = None 
+    email = models.EmailField( _( 'Email') , unique = True )
+    USERNAME_FIELD = 'email' 
+    REQUIRED_FIELDS = []
+
+    class Meta :
+        verbose_name = 'Base User'
+        verbose_name_plural = 'Base Users'
+
+    def __str__( self ) :
+        return f'{ self.email }' 
+
 class City( models.Model ) :
     name = models.CharField( max_length = 30 ) 
 
@@ -44,13 +60,12 @@ class Product( models.Model ) :
     
     def save( self , *args , **kwargs ) :
         if not self.code :
+            letter = self.manufacturing_lab__name[ 0 ] 
             time_part = timezone.now().strftime( "%H%M%S" ) 
             date_part = timezone.now().strftime( "%d%m%Y" )
-            self.code = f'{ time_part }{ date_part }' 
-        super.save( *args , **kwargs ) 
+            self.code = f'{ letter }-{ time_part }{ date_part }' 
+        super.save( *args , **kwargs )
 
     def __str__( self ) :  
         return f'{ self.name } + ( { self.manufacturing_lab } )'
-
-
     

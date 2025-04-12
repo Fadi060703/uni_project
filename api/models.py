@@ -44,7 +44,7 @@ class Pharmacy( models.Model ) :
 
 class Product( models.Model ) :
     name = models.CharField( max_length = 255 ) 
-    manufacturing_lab = models.ForeignKey( Lab , on_delete = models.CASCADE , related_name = 'product-lab' ) 
+    manufacturing_lab = models.ForeignKey( Lab , on_delete = models.CASCADE , related_name = 'product_lab' ) 
     
     class Type( models.TextChoices ) :
         TABLET = 'Tablet' , 'TABLET' 
@@ -54,8 +54,8 @@ class Product( models.Model ) :
         OTHER = 'Other' , 'OTHER' 
 
     type = models.CharField( choices = Type.choices , max_length = 20 ) 
-    man_price = models.DecimalField( decimal_places = 3 ) 
-    sell_price = models.DecimalField( decimal_places = 3 ) 
+    man_price = models.DecimalField( decimal_places = 3 , max_digits = 7 ) 
+    sell_price = models.DecimalField( decimal_places = 3 , max_digits = 7 )  
     code = models.CharField( max_length = 30 )
     
     def save( self , *args , **kwargs ) :

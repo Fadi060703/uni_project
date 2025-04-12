@@ -10,5 +10,7 @@ urlpatterns = [
     path( 'labs/<int:pk>' , LabDetailUpdateDelete.as_view() , name = 'labs-detail' ) , 
     path( 'pharmacies' , ListCreatePharmacy.as_view() , name = 'pharmacies-list' ) ,
     path( 'pharmacies/<int:pk>' , PharmacyDetailUpdateDelete.as_view() , name = 'pharmacies-detail' ) ,
-
+    path( 'products' , ListCreateProduct.as_view() , name = 'products-list' ) ,
+    path( 'products/<int:pk>' , ProductDetailUpdateDelete.as_view() , name = 'products-detail' ) ,
+    
 ]

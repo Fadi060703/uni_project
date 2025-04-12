@@ -17,4 +17,11 @@ class PharmacySerializer( serializers.ModelSerializer ) :
     class Meta :
         model = Pharmacy 
         fields = [ 'name' , 'city' , 'address' , 'phone_number' ] 
+
+class ProductSerializer( serializers.ModelSerializer ) :
+    LabSerializer() 
+    class Meta :
+        model = Product 
+        fields = [ 'name' , 'manufacturing_lab' , 'type' , 'man_price' ,
+                   'sell_price' , 'code' ] 
         

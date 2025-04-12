@@ -56,15 +56,15 @@ class Product( models.Model ) :
     type = models.CharField( choices = Type.choices , max_length = 20 ) 
     man_price = models.DecimalField( decimal_places = 3 , max_digits = 7 ) 
     sell_price = models.DecimalField( decimal_places = 3 , max_digits = 7 )  
-    code = models.CharField( max_length = 30 )
+    code = models.CharField( max_length = 30 , blank = True )
     
     def save( self , *args , **kwargs ) :
         if not self.code :
-            letter = self.manufacturing_lab__name[ 0 ] 
+            letter = self.manufacturing_lab.name[ 0 ] 
             time_part = timezone.now().strftime( "%H%M%S" ) 
             date_part = timezone.now().strftime( "%d%m%Y" )
             self.code = f'{ letter }-{ time_part }{ date_part }' 
-        super.save( *args , **kwargs )
+        super().save( *args , **kwargs )
 
     def __str__( self ) :  
         return f'{ self.name } + ( { self.manufacturing_lab } )'

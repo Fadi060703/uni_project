@@ -32,6 +32,14 @@ class PharmacyDetailUpdateDelete( generics.RetrieveUpdateDestroyAPIView ) :
     serializer_class = PharmacySerializer 
     queryset = Pharmacy.objects.all() 
 
+class ListCreateProduct( generics.ListCreateAPIView ) :
+    serializer_class = ProductSerializer 
+    queryset = Product.objects.all() 
+
+class ProductDetailUpdateDelete( generics.RetrieveUpdateDestroyAPIView ) :
+    serializer_class = ProductSerializer 
+    queryset = Product.objects.all() 
+
 
 
  

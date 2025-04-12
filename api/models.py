@@ -1,6 +1,6 @@
-from django.db import models
+from django.db import models 
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser , Group
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -17,6 +17,19 @@ class BaseUser( AbstractUser ) : # ThE Base User : 4 Different users will inheri
 
     def __str__( self ) :
         return f'{ self.email }' 
+
+class AdminUser( BaseUser ) :
+    class Meta :
+        proxy = True 
+        verbose_name = 'Admin' 
+        verbose_name_plural = 'Admins' 
+    
+    def save( self , *args , **kwargs ) :
+        self.is_staff = True 
+        self.is_superuser = True 
+        super().save( *args , **kwargs ) 
+        admin_group , _ = Group.objects.get_or_create( 'Admin' ) 
+        self.groups.add( admin_group ) 
 
 class City( models.Model ) :
     name = models.CharField( max_length = 30 ) 

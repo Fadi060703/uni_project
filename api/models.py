@@ -18,7 +18,7 @@ class BaseUser( AbstractUser ) : # ThE Base User : 4 Different users will inheri
     def __str__( self ) :
         return f'{ self.email }' 
 
-class Admin( BaseUser ) :
+class SystemAdmin( BaseUser ) :
     class Meta :
         proxy = True 
         verbose_name = 'Admin' 

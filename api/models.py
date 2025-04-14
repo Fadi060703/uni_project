@@ -18,7 +18,7 @@ class BaseUser( AbstractUser ) : # ThE Base User : 4 Different users will inheri
     def __str__( self ) :
         return f'{ self.email }' 
 
-class AdminUser( BaseUser ) :
+class Admin( BaseUser ) :
     class Meta :
         proxy = True 
         verbose_name = 'Admin' 
@@ -30,6 +30,36 @@ class AdminUser( BaseUser ) :
         super().save( *args , **kwargs ) 
         admin_group , _ = Group.objects.get_or_create( 'Admin' ) 
         self.groups.add( admin_group ) 
+
+class Manager( BaseUser ) :
+    class Meta : 
+        verbose_name = 'Manager' 
+        verbose_name_plural = 'Managers' 
+    
+    def save( self , *args , **kwargs ) :
+        super().save( *args , **kwargs ) 
+        manager_group , _ = Group.objects.get_or_create( 'Manager' ) 
+        self.groups.add( manager_group ) 
+
+class Accountant( BaseUser ) :
+    class Meta : 
+        verbose_name = 'Accountant' 
+        verbose_name_plural = 'Accountants' 
+
+    def save( self , *args , **kwargs ) :
+        super().save( *args , **kwargs ) 
+        acc_group , _ = Group.objects.get_or_create( 'Accountant' ) 
+        self.groups.add( acc_group ) 
+
+class Salesman( BaseUser ) :
+    class Meta :
+        verbose_name = 'Salesman' 
+        verbose_name_plural = 'Salesmen' 
+    
+    def save( self , *args , **kwargs ) :
+        super().save( *args , **kwargs ) 
+        sales_group , _ = Group.objects.get_or_create( 'Sales' ) 
+        self.groups.add( sales_group ) 
 
 class City( models.Model ) :
     name = models.CharField( max_length = 30 ) 
